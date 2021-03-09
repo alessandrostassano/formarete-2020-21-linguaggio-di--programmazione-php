@@ -1,9 +1,25 @@
 <?php
+
+print_r($_GET);
+
 //model (la parte che gestisce i dati dell')
 require "./lib/JSONReader.php";
+require "./lib/searchFunctions.php";
 //controller dice ah hai premuto il tasto più , chiedo allora al model di fare l'operazione
 $taskList = JSONReader("./dataset/TaskList.json");
+if (isset($_GET["searchText"])) {
+    $searchText = trim(filter_var($_GET["searchText"],FILTER_SANITIZE_STRING));
+    $taskList = array_filter($taskList, searchText($searchText));
+}else {
+    $searchText = "";
+}
+
+
+
+
+var_dump($searchText);
 ?>
+
 
 <!-- view (vista) visualizzazione / intercetta azioni dell'utente -->
 <!DOCTYPE html>
@@ -16,8 +32,8 @@ $taskList = JSONReader("./dataset/TaskList.json");
     <title>Task list</title>
 </head>
 <body>
-    <form action="">
-    <input type="text" name="searchText">
+    <form action="index.php">
+    <input type="text" <?= $searchText ?> name="searchText">
     <button type="submit">cerca</button>
     </form>
     <ul>
