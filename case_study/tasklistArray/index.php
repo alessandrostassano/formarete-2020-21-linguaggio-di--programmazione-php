@@ -9,15 +9,19 @@ require "./lib/searchFunctions.php";
 $taskList = JSONReader("./dataset/TaskList.json");
 if (isset($_GET["searchText"])) {
     $searchText = trim(filter_var($_GET["searchText"],FILTER_SANITIZE_STRING));
-    $taskList = array_filter($taskList, searchText($searchText));
+    $taskList = array_filter($taskList, searchText($searchText)); //array filter sta applicando la condizione di vero o falso su ogni elemento dell'array dato, della funzione esplicata dopo la parantesi e la virgola
 }else {
     $searchText = "";
+}
+if (isset($_GET["status"])){
+    $status=($_GET["status"]);
+    $taskList=array_filter($taskList,searchStatus($status));
 }
 
 
 
 
-var_dump($searchText);
+//var_dump($searchText);
 ?>
 
 
@@ -32,9 +36,16 @@ var_dump($searchText);
     <title>Task list</title>
 </head>
 <body>
-    <form action="index.php">
+    <form action="index.php"> <!--tutto quello che facciamo nel form viene passato a chi definiamo nel form-->
     <input type="text" <?= $searchText ?> name="searchText">
     <button type="submit">cerca</button>
+    <div id="status">
+    <input type="radio" name="status" value="progress" id="progress">
+    <label for="progress">Progress</label>
+    <input type="radio" name="status" value="progress" id="done">
+    <label for="progress">Done</label>
+    <input type="radio" name="status" value="progress" id="todo">
+    <label for="progress">To Do</label>
     </form>
     <ul>
         <?php 
@@ -52,8 +63,8 @@ var_dump($searchText);
         
         <?php } ?>
        
-        <li class="tasklist-item tasklist-item-done">uova <b>done</b></li>
-        <li class="tasklist-item tasklist-item-todo">uova <b>todo</b>
+        <!--<li class="tasklist-item tasklist-item-done">uova <b>done</b></li>
+        <li class="tasklist-item tasklist-item-todo">uova <b>todo</b>-->
     </ul>
 </body>
 </html>
