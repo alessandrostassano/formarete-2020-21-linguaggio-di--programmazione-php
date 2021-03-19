@@ -13,9 +13,11 @@ class Task {
         $today = new DateTime ();
         $task = new DateTime($this->expirationDate);
 
+        //qui sto dicendo che il valore che ritorna è un booleano, ed è il risutlato del confronto tra i due oggetti che contengono la new date di adesso e la new date che ho inserito io 
+
         //possiamo usare le informazioni e gli attributi per utilizzarle nei metodi e sapere se una task è scaduta
 
-        return $task > today;
+        return $task > $today;
         // gettype($today) object
         // get_class($today) DateTime
     }
