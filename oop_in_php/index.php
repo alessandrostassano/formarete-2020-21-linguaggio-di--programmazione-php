@@ -5,7 +5,8 @@ require "./class/Task.php";
 
 $taskList = JSONReader("./dataset/TaskList.json");
 
-
+//paradigma imperativo perchè sto impostando tutto per filo e per segno, l'aggettivo imperativo è descrittivo del modo in cui inseriamo e gli diciamo come eseguire i comandi
+$taskListObj = [];
 
 foreach ($taskList as $taskArray) {
      
@@ -18,6 +19,19 @@ foreach ($taskList as $taskArray) {
 
      $taskListObj[] = $taskObj;
 }
+
+
+//metodo dichiarativo, perchè array map indica la volontà di trasformare qualcosa --> programma funzionale
+//somma (4,5)
+$taskListObject = array_map(function($taskArray){
+    $taskObj = new Task();
+    $taskObj->id = $taskArray["id"];
+    $taskObj->taskName = $taskArray["taskName"];
+    $taskObj->status = $taskArray["status"];
+    $taskObj->expirationDate = $taskArray["expirationDate"];
+    return $taskObj;
+
+}, $taskList);
 
 ?>
 <!DOCTYPE html>
