@@ -1,5 +1,8 @@
 <?php 
-require "../class/task.php";
+require ".vendor/testTools/testTool.php";
+require "./class/task.php;
+
+//PER LANCIARE IL TEST DA LINEA DI COMANDO DEVO ANDARE DENTOR LA CARTELLA IN QUESTION, NON DA TUTA LA CARTELLA DEL PROGETTO QUINDI IN QUESTO CASO OOP
 
 $ArrayEsercizio = [
     [
