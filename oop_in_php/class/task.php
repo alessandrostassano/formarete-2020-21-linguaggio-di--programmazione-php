@@ -1,28 +1,46 @@
-<?php 
 
+    
+    <!--public function isExpired//():bool
+    // in questo metodo succede che la data con cui fare il confronto veniva decisa all'interno del metodo
+    //{
+        // istanza della classe DateTime
+        $today = new DateTime//('today');
+        $task = new DateTime//($this->getExpirationDate());
+        return $task->getTimestamp//() < $today->getTimestamp(); 
+    //}*/
+
+    //nel metodo successivo sono io che ipotizzo un oggi, con una data che gli viene passata come argomento-->
+   
+<?php
 class Task {
+    
     public $id;
     public $taskName;
     public $status;
     public $expirationDate;
 
-    public function isExpired():bool
+    //public function isExpired($expirationString):bool
+    public function isExpired(DateTime $expiration):bool
     {
-        //una variabile che appartiene ad una classe si chiama attributo! 
-        //today è una istanza della classe DateTime
-        $today = new DateTime ();
-        $task = new DateTime($this->expirationDate);
+        try {
+            $expiration = new DateTime($expirationString);
+            // $today = new DateTime(); //oggi
+            // $expiration = new DateTime($expirationString);
+            $task = new DateTime($this->expirationDate); 
 
-        //qui sto dicendo che il valore che ritorna è un booleano, ed è il risutlato del confronto tra i due oggetti che contengono la new date di adesso e la new date che ho inserito io 
+            // non è oggi
+            if($expiration->format('Ymd') === $task->format('Ymd')){
+                return false;
+            }
+            return $expiration->getTimestamp() > $task->getTimestamp(); 
 
-        //possiamo usare le informazioni e gli attributi per utilizzarle nei metodi e sapere se una task è scaduta
-
-        return $task > $today;
-        // gettype($today) object
-        // get_class($today) DateTime
+        } catch (\Throwable $th) {
+            return $th;
+        }
+        return $expiration->getTimestamp() > $task->getTimestamp(); 
     }
-    
-    public function getExpirationDate() 
+
+    public function getExpirationDate()
     {
         return $this->expirationDate;
     }

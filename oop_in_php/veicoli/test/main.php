@@ -1,0 +1,2 @@
+- qui farò i test dell'applicazione
+-ci segneremo un po di ragionamenti man mano che andimao avanti
